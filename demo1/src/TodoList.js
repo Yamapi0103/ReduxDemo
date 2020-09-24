@@ -7,15 +7,34 @@ class TodoList extends Component {  // 快捷鍵:ccc
 
   constructor(props) {
     super(props)
-    console.log(store.getState())
     this.state = store.getState()
+    this.changeInputValue=this.changeInputValue.bind(this)
+    this.storeChange = this.storeChange.bind(this)
+    store.subscribe(this.storeChange)
+  }
+
+  changeInputValue(e){
+    const action ={
+      type: 'changeInput',
+      value: e.target.value
+    }    
+    store.dispatch(action)  
+  }
+
+  storeChange(){
+    this.setState(store.getState())
   }
 
   render () {
     return (
       <div>
         <div style={{ margin: '10px' }}>
-          <Input placeholder={this.state.inputValue} style={{ width: '250px', marginRight: '10px' }} />
+          <Input 
+            placeholder={this.state.inputValue}
+            style={{ width: '250px', marginRight: '10px' }}
+            onChange={this.changeInputValue}
+            value={this.state.inputValue}
+            />
           <Button type="primary">增加</Button>
         </div>
         <div style={{ margin: '10px', width: '300px' }}>

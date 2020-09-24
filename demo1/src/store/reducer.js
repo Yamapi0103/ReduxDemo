@@ -7,5 +7,13 @@ const defaultState = {
   ]
 }
 export default (state = defaultState, action) => {
+
+  console.log(state)
+  // Reducer裡只能接收state, 但不能改變state
+  if(action.type === 'changeInput'){
+    let newState = JSON.parse(JSON.stringify(state))
+    newState.inputValue = action.value
+    return newState
+  }
   return state
 }
