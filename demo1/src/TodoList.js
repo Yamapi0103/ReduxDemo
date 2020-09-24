@@ -2,43 +2,36 @@ import React, { Component } from 'react'; // 快捷鍵:imrc
 import 'antd/dist/antd.css'
 import { Input, Button, List } from 'antd'
 import store from './store'
-import {CHANGE_INPUT,ADD_ITEM,DELETE_ITEM} from './store/actionTypes'
+import { CHANGE_INPUT, ADD_ITEM, DELETE_ITEM } from './store/actionTypes'
+import { changeInputAction, addItemAction, deleteItemAction } from './store/actionCreators'
 
 class TodoList extends Component {  // 快捷鍵:ccc
 
   constructor(props) {
     super(props)
     this.state = store.getState()
-    this.changeInputValue=this.changeInputValue.bind(this)
+    this.changeInputValue = this.changeInputValue.bind(this)
     this.storeChange = this.storeChange.bind(this)
     store.subscribe(this.storeChange)
     this.clickBtn = this.clickBtn.bind(this)
   }
 
-  changeInputValue(e){
-    const action ={
-      type: CHANGE_INPUT,
-      value: e.target.value
-    }    
-    store.dispatch(action)  
-  }
-
-  storeChange(){
-    this.setState(store.getState())
-  }
-
-  clickBtn(){
-    const action ={
-      type:ADD_ITEM
-    }
+  changeInputValue (e) {
+    const action = changeInputAction(e.target.value)
     store.dispatch(action)
   }
 
-  deleteItem(index){
-    const action ={
-      type:DELETE_ITEM,
-      index
-    }
+  storeChange () {
+    this.setState(store.getState())
+  }
+
+  clickBtn () {
+    const action = addItemAction()
+    store.dispatch(action)
+  }
+
+  deleteItem (index) {
+    const action = deleteItemAction(index)
     store.dispatch(action)
   }
 
@@ -46,22 +39,22 @@ class TodoList extends Component {  // 快捷鍵:ccc
     return (
       <div>
         <div style={{ margin: '10px' }}>
-          <Input 
+          <Input
             placeholder={this.state.inputValue}
             style={{ width: '250px', marginRight: '10px' }}
             onChange={this.changeInputValue}
             value={this.state.inputValue}
-            />
-          <Button 
+          />
+          <Button
             type="primary"
             onClick={this.clickBtn}
-            >增加</Button>
+          >增加</Button>
         </div>
         <div style={{ margin: '10px', width: '300px' }}>
           <List
             bordered
             dataSource={this.state.list}
-            renderItem={(item,index) => (<List.Item onClick={this.deleteItem.bind(this,index)}>{item}</List.Item>)}
+            renderItem={(item, index) => (<List.Item onClick={this.deleteItem.bind(this, index)}>{item}</List.Item>)}
           />
         </div>
       </div>
