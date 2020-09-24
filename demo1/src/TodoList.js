@@ -11,6 +11,7 @@ class TodoList extends Component {  // 快捷鍵:ccc
     this.changeInputValue=this.changeInputValue.bind(this)
     this.storeChange = this.storeChange.bind(this)
     store.subscribe(this.storeChange)
+    this.clickBtn = this.clickBtn.bind(this)
   }
 
   changeInputValue(e){
@@ -25,6 +26,13 @@ class TodoList extends Component {  // 快捷鍵:ccc
     this.setState(store.getState())
   }
 
+  clickBtn(){
+    const action ={
+      type:'addItem'
+    }
+    store.dispatch(action)
+  }
+
   render () {
     return (
       <div>
@@ -35,7 +43,10 @@ class TodoList extends Component {  // 快捷鍵:ccc
             onChange={this.changeInputValue}
             value={this.state.inputValue}
             />
-          <Button type="primary">增加</Button>
+          <Button 
+            type="primary"
+            onClick={this.clickBtn}
+            >增加</Button>
         </div>
         <div style={{ margin: '10px', width: '300px' }}>
           <List
