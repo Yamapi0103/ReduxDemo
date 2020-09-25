@@ -1,8 +1,7 @@
 import React, { Component } from 'react'; // 快捷鍵:imrc
 import store from './store'
-import { changeInputAction, addItemAction, deleteItemAction, getListAction } from './store/actionCreators'
+import { changeInputAction, addItemAction, deleteItemAction, getListAction, getTodoList } from './store/actionCreators'
 import TodoListUI from './TodoListUI'
-import axios from 'axios'
 class TodoList extends Component {  // 快捷鍵:ccc
 
   constructor(props) {
@@ -16,12 +15,8 @@ class TodoList extends Component {  // 快捷鍵:ccc
   }
 
   componentDidMount () {
-    let url = 'https://run.mocky.io/v3/f96bcda8-791f-4fa0-a8fb-cf8391cbe346' // https://designer.mocky.io/
-    axios.get(url).then((res) => {
-    const data = res.data
-    const action = getListAction(data)
+    const action = getTodoList()
     store.dispatch(action)
-    })
   }
 
   changeInputValue (e) {
