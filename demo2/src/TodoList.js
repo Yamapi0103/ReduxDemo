@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import store from './store'
 import { connect } from 'react-redux'
 class TodoList extends Component {
   constructor(props) {
@@ -9,7 +8,7 @@ class TodoList extends Component {
     return (
       <div>
         <div>
-          <input value={this.props.inputValue} />
+          <input value={this.props.inputValue} onChange={this.props.inputChange} />
           <button>提交</button>
         </div>
         <ul>
@@ -18,12 +17,23 @@ class TodoList extends Component {
       </div>
     );
   }
+
 }
 
-const stateToProps = (state)=>{
+const stateToProps = (state) => {
   return {
-    inputValue:state.inputValue
+    inputValue: state.inputValue
   }
 }
-
-export default connect(stateToProps, null)(TodoList)
+const dispatchToProps = (dispatch) => {
+  return {
+    inputChange (e) {
+      let action = {
+        type: 'change_input',
+        value: e.target.value
+      }
+      dispatch(action)
+    }
+  }
+}
+export default connect(stateToProps, dispatchToProps)(TodoList)
