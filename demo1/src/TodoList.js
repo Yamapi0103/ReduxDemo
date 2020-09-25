@@ -1,5 +1,4 @@
 import React, { Component } from 'react'; // 快捷鍵:imrc
-import 'antd/dist/antd.css'
 import store from './store'
 import { changeInputAction, addItemAction, deleteItemAction } from './store/actionCreators'
 
