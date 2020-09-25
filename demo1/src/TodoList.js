@@ -1,6 +1,6 @@
 import React, { Component } from 'react'; // 快捷鍵:imrc
 import store from './store'
-import { changeInputAction, addItemAction, deleteItemAction, getListAction, getTodoList } from './store/actionCreators'
+import { changeInputAction, addItemAction, deleteItemAction, getListAction, getTodoList, getMyListAction } from './store/actionCreators'
 import TodoListUI from './TodoListUI'
 class TodoList extends Component {  // 快捷鍵:ccc
 
@@ -15,7 +15,9 @@ class TodoList extends Component {  // 快捷鍵:ccc
   }
 
   componentDidMount () {
-    const action = getTodoList()
+    // const action = getTodoList()
+    // store.dispatch(action)
+    const action = getMyListAction()
     store.dispatch(action)
   }
 
